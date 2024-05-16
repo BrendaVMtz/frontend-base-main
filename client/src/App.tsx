@@ -12,11 +12,11 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
-import DashboardPage from "./pages/DashboardPage";
+// import DashboardPage from "./pages/DashboardPage";
 import AboutPage from "./pages/AboutPage";
 import PricingPage from "./pages/PricingPage";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
-import NoteFormPage from "./pages/NoteFormPage";
+// import NoteFormPage from "./pages/NoteFormPage";
 
 // const queryClient = new QueryClient();
 
@@ -39,8 +39,8 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route element={<ProtectedRoute isAllowed={true} children={undefined} />}>
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/notes/new" element={<NoteFormPage />} />
+              {/* <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/notes/new" element={<NoteFormPage />} /> */}
             </Route>
           </Routes>
         {/* </Container> */}
