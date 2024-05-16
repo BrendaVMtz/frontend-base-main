@@ -4,7 +4,7 @@ import Navigation from "./components/Navigation";
 // import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-// import { useAuthStore } from "./store/auth";
+import { useAuthStore } from "./store/auth";
 
 // import { Container } from "./components/Container";
 
@@ -21,7 +21,7 @@ import { ProtectedRoute } from "./components/ProtectedRoutes";
 // const queryClient = new QueryClient();
 
 function App() {
-  // const isAuth = useAuthStore((state) => state.isAuth);
+  const isAuth = useAuthStore((state) => state.isAuth);
 
   return (
     // <QueryClientProvider client={queryClient}>
@@ -36,8 +36,8 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
 
 
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route element={<ProtectedRoute isAllowed={true} children={undefined} />}>
+            {/* <Route path="/profile" element={<ProfilePage />} /> */}
+            <Route element={<ProtectedRoute isAllowed={isAuth} children={undefined} />}>
               <Route path="/profile" element={<ProfilePage />} />
               {/* <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/notes/new" element={<NoteFormPage />} /> */}

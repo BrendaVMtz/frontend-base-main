@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { useAuthStore } from '../store/auth';
 
@@ -11,7 +12,7 @@ const authApi = axios.create({
   withCredentials: true,
 });
 
-authApi.interceptors.request.use(config => {
+authApi.interceptors.request.use((config:any) => {
   const token = useAuthStore.getState().token;
   config.headers = {
     Authorization: `Bearer ${token}`

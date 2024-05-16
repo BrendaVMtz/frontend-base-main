@@ -5,18 +5,18 @@ import { persist } from "zustand/middleware";
 // import { profileRequest, registerRequest } from "../api/auth";
 // import { createUser } from "../interface/user";
 
-// export interface Profile {
-//   _id: string;
-//   email: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-//   __v: number;
-// }
+export interface Profile {
+  _id: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
 
 type State = {
   token: string;
   profile: any;
-  // isAuth: boolean;
+  isAuth: boolean;
   // errors: any;
 };
 
@@ -24,7 +24,7 @@ type Actions = {
   setToken: (token: string) => void;
   setProfile: (profile: any) => void;
   // register: (user: createUser) => void;
-  // logout: () => void;
+  logout: () => void;
   // cleanErrors: () => void;
 };
 
@@ -33,16 +33,17 @@ export const useAuthStore = create(
     (set) => ({
       token: "",
       profile: null,
-      // isAuth: false,
+      isAuth: false,
       // errors: null,
       setToken: (token: string) =>
         set((state) => ({
-          token
+          token,
+          isAuth: true
           // isAuth: !!token,
         })),
         setProfile: (profile: any) => set(state => ({
           profile
-        }) )
+        }) ),
       // register: async (user: createUser) => {
       //   try {
       //     const resRegister = await registerRequest(user);
@@ -60,7 +61,7 @@ export const useAuthStore = create(
       //     profile: resProfile.data,
       //   }));
       // },
-      // logout: () => set(() => ({ token: null, profile: null, isAuth: false })),
+      logout: () => set(() => ({ token: '', profile: null, isAuth: false })),
       // cleanErrors: () => set(() => ({ errors: null })),
     }),
     {
