@@ -1,33 +1,35 @@
-import { loginRequest } from "../api/auth";
-// import { useAuthStore } from "../store/auth";
-// import { Link, useNavigate } from "react-router-dom";
+import { loginRequest, profileRequest } from "../api/auth";
+import { useAuthStore } from "../store/auth";
+import { /*Link,*/ useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  // const setToken = useAuthStore((state) => state.setToken);
-  // const setProfile = useAuthStore((state) => state.setProfile);
-  // const navigate = useNavigate();
+  const setToken = useAuthStore((state) => state.setToken);
+  const setProfile = useAuthStore((state) => state.setProfile);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = (e.currentTarget.elements[0] as HTMLInputElement).value;
     const password = (e.currentTarget.elements[1] as HTMLInputElement).value;
 
-    console.log(email,password)
+    // console.log(email,password)
 
     const resLogin = await loginRequest(email, password);
-    console.log(resLogin);
-    // setToken(resLogin.data.token);
+    // console.log(resLogin);
+    setToken(resLogin.data.token);
 
-    // const resProfile = await profileRequest();
-    // setProfile(resProfile.data);
+    const resProfile = await profileRequest();
+    // console.log(resProfile);
+    setProfile(resProfile.data);
 
     // navigate("/dashboard");
+    navigate("/profile");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-    <input type="email" name="" id="" />
-    <input type="password" name="" id="" />
+    <input type="email" name="" id="a" />
+    <input type="password" name="" id="b" />
     <button type="submit">Login</button>
     </form>
     // <div className="flex h-[calc(100vh-150px)] items-center justify-center">
