@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Register from "./Auth/Register";
+
 function App() {
   return (
         <BrowserRouter>
             <Routes>
               <Route path="/" element={<h1>Home Page</h1>} />
               <Route path="/login" element={<h1>Login</h1>} />
-              <Route path="/register" element={<h1>Register</h1>} />
+              <Route path="/register" element={<Register/>} />
     
               <Route path="/transactions" element={<h1>Transacciones</h1>} />
               <Route path="/add-transaction" element={<h1>Agregar transaccion</h1>} />
