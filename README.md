@@ -1,3 +1,5 @@
+# React + Vite
+
 ## Instalar dependencias
 
 ```bash
@@ -12,5 +14,3 @@ Modificar el archivo connection.ts ubicado en src/database/database
 
 ```bash
  npm run dev
-
-```
