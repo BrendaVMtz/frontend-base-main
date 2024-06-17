@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./Auth/Register";
+import Login from "./Auth/Login";
 import { AuthProvider } from "./context/authContext";
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
               <BrowserRouter>
             <Routes>
               <Route path="/" element={<h1>Home Page</h1>} />
-              <Route path="/login" element={<h1>Login</h1>} />
+              <Route path="/login" element={<Login/>} />
               <Route path="/register" element={<Register/>} />
     
               <Route path="/transactions" element={<h1>Transacciones</h1>} />

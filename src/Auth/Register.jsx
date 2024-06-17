@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/authContext";
 import { useEffect } from "react";
+import Hero from './Hero';
 
 
 function Register() {
@@ -122,7 +123,7 @@ function Register() {
         </div>
       </div>
       <div className="hidden relative lg:flex h-full w-1/2 items-center justify-center bg-gray-200">
-        {/* <Hero/> */}
+        <Hero/>
       </div>
     </div>
   );
