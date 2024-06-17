@@ -1,0 +1,29 @@
+.table-container {
+  padding: 1rem;
+}
+
+.table-title {
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.table th:hover {
+  background-color: #e2e2e2;
+}
