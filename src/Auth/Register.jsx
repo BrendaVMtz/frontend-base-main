@@ -1,11 +1,33 @@
 // import Hero from './Hero'; // Importación del componente Hero
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { registerRequest } from "../api/auth";
+import { useAuth } from "../context/authContext";
+import { useEffect } from "react";
 
 
 function Register() {
-  const { register, handleSubmit } = useForm();
+  // eslint-disable-next-line no-unused-vars
+  const { register, handleSubmit, formState: {errors} } = useForm();
+  const { signup, isAuthenticated, errors: RegisterErrors} = useAuth();
+  const navigate = useNavigate();
+
+
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      navigate("/transactions");
+    }
+
+  }, [isAuthenticated, navigate])
+
+  const onSumbit = handleSubmit(async (values) => {
+    try {
+      await signup(values); // Call signup function from useAuth
+    } catch (error) {
+      console.error("Error signing up:", error);
+      // Handle error state or display error to user
+    }
+  })
   return (
     <div className="flex w-full h-screen">
       <div className="w-full flex items-center justify-center lg:w-1/2 bg-gray-200">
@@ -14,14 +36,10 @@ function Register() {
           <p className="font-medium text-lg text-gray-500 mt-4">
             ¡Bienvenido! Ingresa tus datos
           </p>
+          <div>{RegisterErrors}</div>
           {/* Formulario de registro */}
           <form
-            onSubmit={handleSubmit(async (values) => {
-              console.log('helo');
-              console.log(values);
-                const res = await registerRequest(values);
-                console.log(res);
-            })}
+            onSubmit={onSumbit}
           >
             {/* Username */}
             <div className="mt-8">
@@ -33,7 +51,12 @@ function Register() {
                   name="nombreUsuario"
                   type="text"
                   {...register("nombre", { required: true })}
+                  autoFocus
                 />
+                {/* Párrafo en rojo cuando el input está vacío */}
+                {errors.nombre && (
+                  <p className="text-red-500 text-sm mt-1">Usuario es requerido</p>
+                )}
               </div>
             </div>
             {/* Email */}
@@ -45,8 +68,13 @@ function Register() {
                   placeholder="Ingresa tu email"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   {...register("email", { required: true })}
+                  autoFocus
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">Email es requerido</p>
+                )}
               </div>
             </div>
             {/* Password */}
@@ -59,7 +87,11 @@ function Register() {
                   name="password"
                   type="password"
                   {...register("contrasena", { required: true })}
+                  autoFocus
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">Contraseña es requerido</p>
+                )}
               </div>
             </div>
             <div className="mt-1 flex justify-between items-center">
