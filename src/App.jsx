@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
 
-import { ProtectedRoute } from "./protectedRoutes";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
+import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -15,8 +16,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/transactions" element={<h1>Transacciones</h1>} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/transactions" element={<Logout />} />
             <Route
               path="/add-transaction"
               element={<h1>Agregar transaccion</h1>}

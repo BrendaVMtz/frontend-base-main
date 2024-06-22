@@ -1,10 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./context/authContext";
+import { useEffect } from "react";
 
-export const ProtectedRoute = () => {
-  const { isAuthenticated } = useAuth();
+// eslint-disable-next-line react/prop-types
+const ProtectedRoutes = () => {
+  const { isAuthenticated,checkLogin } = useAuth();
   
-
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  return <Outlet />;
+  useEffect(() => {
+    checkLogin()
+  
+  }, [checkLogin])
+  
+  return isAuthenticated ? <Outlet/>: <Navigate to="/login" />;
 };
+
+
+export default ProtectedRoutes;
