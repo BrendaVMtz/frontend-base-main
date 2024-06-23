@@ -5,7 +5,8 @@ import ProtectedRoutes from "./ProtectedRoutes";
 
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-import Logout from "./components/Logout";
+// import TransactionsFromPage from "./pages/TransactionsFromPage";
+import Dashboard from "./pages/Transactions/Dashboard";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route element={<ProtectedRoutes />}>
-            <Route path="/transactions" element={<Logout />} />
+            <Route path="/transactions" element={<Dashboard />} />
             <Route
               path="/add-transaction"
               element={<h1>Agregar transaccion</h1>}
