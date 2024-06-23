@@ -9,7 +9,7 @@ const Logout = () => {
   return (
     <div>
 
-    <Button variant="outlined" onClick={logout} >Cerrar sesion</Button>
+    <Button variant="contained" color="success" onClick={logout} >Cerrar sesion</Button>
     {/* <button type="button" onClick={logout}>logput</button> */}
     </div>
   )
