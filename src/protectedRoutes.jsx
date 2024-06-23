@@ -1,17 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./context/authContext";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoutes = () => {
-  const { isAuthenticated,checkLogin } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
   
-  useEffect(() => {
-    checkLogin()
-  
-  }, [checkLogin])
-  
-  return isAuthenticated ? <Outlet/>: <Navigate to="/login" />;
+  if (loading) return <h1>Loading...</h1>;
+  if (!isAuthenticated && !loading) return <Navigate to="/login" replace />;
+  return <Outlet />;
 };
 
 
