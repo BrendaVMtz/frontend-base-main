@@ -5,16 +5,16 @@ import Title from '../../components/Title';
 
 
 
-export default function Chart() {
+export default function Profile() {
 
   return (
     <React.Fragment>
-      <Title>Balance general</Title>
+      <Title>Usuario</Title>
       <Typography component="p" variant="h4">
-        Id: 15
+        Nombre
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
-        on March, 2019
+        Correo
       </Typography>
     </React.Fragment>
   );

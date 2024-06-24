@@ -7,21 +7,25 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 // import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    {/* Nuevo balance */}
+    <ListItemButton component={Link} to="/balance-general">
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Nuevo Balance" />
+    </ListItemButton> 
+    {/* Transacciones */}
+    <ListItemButton component={Link} to="/transactions">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Transacciones" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Nuevo Balance" />
-    </ListItemButton>  
+     
     {/* <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />
