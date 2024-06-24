@@ -16,7 +16,7 @@ function Register() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/transactions");
+      navigate("/balance-general");
     }
   }, [isAuthenticated, navigate]);
 

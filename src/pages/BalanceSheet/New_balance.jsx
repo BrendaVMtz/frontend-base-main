@@ -10,6 +10,7 @@ import {
   Grid,
 } from "@mui/material";
 // import { useForm } from "react-hook-form";
+import { useBalance } from "../../context/balanceContext";
 
 const months = [
   { value: 1, label: "Enero" },
@@ -29,6 +30,7 @@ const months = [
 export default function New_balance() {
   const [year, setYear] = React.useState("");
   const [month, setMonth] = React.useState("");
+  const {createBalance} = useBalance();
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
@@ -38,11 +40,24 @@ export default function New_balance() {
     setMonth(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log("Selected Year:", year);
-    console.log("Selected Month:", month);
+    
+    const balance = 
+      {
+        anio: year,
+        mes: month
+      }
+    
+    try{
+      await createBalance(balance);
+
+    }catch(error){
+      console.log("Error creating balance", error);
+    }
+
     // Add your logic here to handle form submission
+
   };
   return (
     <React.Fragment>
