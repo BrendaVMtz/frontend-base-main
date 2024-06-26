@@ -1,53 +1,23 @@
 import * as React from 'react';
 // import Link from '@mui/material/Link';
+import { useEffect } from 'react';
+import { useBalance } from '../../context/balanceContext';
 import { Table, TableHead, TableBody, TableRow, TableCell,  Button } from '@mui/material';
-
 import Title from '../../components/Title';
-
-
-
-
-
+import {Link} from 'react-router-dom';
 // Generate Order Data
-
 const months = [
   'Enero', 'Febrero', 'Marzo', 'Abril',
   'Mayo', 'Junio', 'Julio', 'Agosto',
   'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
-function createData(id, year, month) {
-  return { id, year, month };
-}
+export default function BalanceList() {
+  const {balances, getBalances} = useBalance();
 
-const data = [
-  createData(
-    0,
-    2024,
-    2,
-  ),
-  createData(
-    1,
-    2024,
-    1,
-  ),
-  createData(
-    2, 
-    2024,
-    3,
-  ),
-  createData(
-    3,
-    2024,
-    6,
-  ),
-];
-
-// function preventDefault(event) {
-//   event.preventDefault();
-// }
-
-export default function BalancesList() {
+  useEffect(() => {
+    getBalances();
+  });
   
   return (
     <React.Fragment>
@@ -55,23 +25,28 @@ export default function BalancesList() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
-            <TableCell> </TableCell>
+            <TableCell>Id</TableCell>
             <TableCell>Año</TableCell>
             <TableCell>Mes</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((item, id) => (
+          {balances?.map((item, id) => (
             <TableRow key={id}>
+              <TableCell>{item.id}</TableCell>
+              <TableCell>{item.anio}</TableCell>
+              <TableCell>{months[item.mes - 1]}</TableCell>
               <TableCell>
-                <Button variant="outlined" color="primary" >Editar</Button>
+                <Button variant="outlined" color="primary" 
+                component={Link}
+                to={`/transactions/${item.id}`}
+                >Editar</Button>
               </TableCell>
               <TableCell>
                 <Button variant="outlined" color="secondary" >Eliminar</Button>
               </TableCell>
-              <TableCell>{item.year}</TableCell>
-              <TableCell>{months[item.month - 1]}</TableCell>
             </TableRow>
           ))}
         </TableBody>

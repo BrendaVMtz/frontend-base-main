@@ -4,8 +4,8 @@ import * as React from "react";
 import Title from '../../components/Title';
 import {
   FormControl,
-  InputLabel,
-  Select,
+  // InputLabel,
+  // Select,
   MenuItem,
   TextField,
   Button,
@@ -22,7 +22,34 @@ import {
 //   },
 // }));
 
+const cuentas = [
+  { value: 1, label: "Capital Social" },
+  { value: 2, label: "Bancos" },
+  { value: 3, label: "Equipo de reparto" },
+  { value: 4, label: "Deposito en garantía" },
+  { value: 5, label: "Rentas pagadas" },
+  { value: 6, label: "Gastos de organización" },
+  { value: 7, label: "Caja" },
+  { value: 8, label: "Mobiliario y equipo" },
+  { value: 9, label: "Primas de seguros" },
+  { value: 10, label: "Mercancía" },
+  { value: 11, label: "Equipo de Cómputo" },
+  { value: 12, label: "Papelería" },
+];
+
 export default function New_transaction() {
+  
+  const [cuentaD, setCuentaD] = React.useState("");
+  const [cuentaH, setCuentaH] = React.useState("");
+
+  const handleCuentaDebeChange = (event) => {
+    setCuentaD(event.target.value);
+  };
+  const handleCuentaHaberChange = (event) => {
+    setCuentaH(event.target.value);
+  };
+
+
   return (
     <React.Fragment>
       <Title>Agregar transacción</Title>
@@ -31,39 +58,41 @@ export default function New_transaction() {
           {/*Cuenta debe */}
           <Grid item xs={12} md={6}>
             <FormControl /*className={classes.formControl}*/ fullWidth>
-              <InputLabel id="month-label">Cuenta debe</InputLabel>
-              <Select
-                labelId="month-label"
-                id="month"
-                name="month"
-                // value={formData.month}
-                // onChange={handleInputChange}
-                label="Select Month"
-              >
-                <MenuItem value="">Seleccionar cuenta</MenuItem>
-                <MenuItem value="January">Capital Social</MenuItem>
-                <MenuItem value="February">Bancos</MenuItem>
-                <MenuItem value="March">Equipo de reparto</MenuItem>
-              </Select>
+            <TextField
+              fullWidth
+              select
+              label="Cuenta debe"
+              value={cuentaD}
+              onChange={handleCuentaDebeChange}
+              variant="outlined"
+              required
+            >
+              {cuentas.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
             </FormControl>
           </Grid>
           {/*Cuenta haber */}
           <Grid item xs={12} md={6}>
             <FormControl /*className={classes.formControl}*/ fullWidth>
-              <InputLabel id="month-label">Cuenta haber</InputLabel>
-              <Select
-                labelId="month-label"
-                id="month"
-                name="month"
-                // value={formData.month}
-                // onChange={handleInputChange}
-                label="Select Month"
-              >
-                <MenuItem value="">Seleccionar cuenta</MenuItem>
-                <MenuItem value="January">Capital Social</MenuItem>
-                <MenuItem value="February">Bancos</MenuItem>
-                <MenuItem value="March">Equipo de reparto</MenuItem>
-              </Select>
+            <TextField
+              fullWidth
+              select
+              label="Cuenta haber"
+              value={cuentaH}
+              onChange={handleCuentaHaberChange}
+              variant="outlined"
+              required
+            >
+              {cuentas.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
             </FormControl>
           </Grid>
           <Grid item xs={12} >

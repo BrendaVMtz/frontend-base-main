@@ -22,12 +22,12 @@ function App() {
           <Route path="/register" element={<Register />} />
 
             <Route element={<ProtectedRoutes />}>
-              <Route path="/transactions" element={<Dashboard />} />
+              <Route path="/transactions/:id" element={<Dashboard />} />
               <Route
                 path="/add-transaction"
                 element={<h1>Agregar transaccion</h1>}
               />
-              <Route path="/transactions/:id" element={<h1>Transaccion</h1>} />
+              {/* <Route path="/transactions/:id" element={<h1>Transaccion</h1>} /> */}
               <Route path="/tablasT" element={<h1>tablas T</h1>} />
               <Route path="/balance-general" element={<BalanceSheet />} />
             </Route>

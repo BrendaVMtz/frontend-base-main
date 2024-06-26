@@ -1,4 +1,5 @@
 import * as React from 'react';
+// import { useEffect } from 'react';
 // import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,44 +7,55 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../../components/Title';
+// import { useParams } from 'react-router-dom';
+// import { useBalance } from '../../context/balanceContext';
 
 // Generate Order Data
-function createData(id, name_origin, name_dest, amount) {
-  return { id, name_origin, name_dest, amount };
-}
+// function createData(id, name_origin, name_dest, amount) {
+//   return { id, name_origin, name_dest, amount };
+// }
 
-const rows = [
-  createData(
-    0,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    1,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    2, 
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    3,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-];
+// const rows = [
+//   createData(
+//     0,
+//     'Capital Social',
+//     'Bancos',
+//     10000,
+//   ),
+//   createData(
+//     1,
+//     'Capital Social',
+//     'Bancos',
+//     10000,
+//   ),
+//   createData(
+//     2, 
+//     'Capital Social',
+//     'Bancos',
+//     10000,
+//   ),
+//   createData(
+//     3,
+//     'Capital Social',
+//     'Bancos',
+//     10000,
+//   ),
+// ];
 
 // function preventDefault(event) {
 //   event.preventDefault();
 // }
 
 export default function Transaccions() {
+  const [transactions] = [];
+  // const { id } = useParams(); // Get the balance ID from URL params
+  // const {transactions, getTransactionsById} = useBalance();
+
+
+  // useEffect(()=>{
+  //   //getTransactionsById(id);
+  // });
+
   return (
     <React.Fragment>
       <Title>Últimos balances generales</Title>
@@ -57,7 +69,7 @@ export default function Transaccions() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {transactions.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id + 1}</TableCell>
               <TableCell>{row.name_origin}</TableCell>

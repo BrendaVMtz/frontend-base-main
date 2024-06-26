@@ -19,7 +19,7 @@ export const mainListItems = (
       <ListItemText primary="Nuevo Balance" />
     </ListItemButton> 
     {/* Transacciones */}
-    <ListItemButton component={Link} to="/transactions">
+    <ListItemButton component={Link} to="/transactions/1">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>

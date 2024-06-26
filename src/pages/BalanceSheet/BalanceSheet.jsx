@@ -7,7 +7,7 @@ import { useMediaQuery } from "@mui/material";
 
 import Profile from "./Profile";
 import New_balance from "./New_balance";
-import BalancesList from "./BalancesList";
+import BalanceList from "./BalancesList";
 import Layout from "../Layout";
 
 const defaultTheme = createTheme();
@@ -48,7 +48,7 @@ export default function Dashboard() {
           {/* Lista balances */}
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <BalancesList />
+              <BalanceList />
             </Paper>
           </Grid>
         </Grid>
