@@ -17,7 +17,7 @@ export default function BalanceList() {
 
   useEffect(() => {
     getBalances();
-  });
+  }, []);
   
   return (
     <React.Fragment>

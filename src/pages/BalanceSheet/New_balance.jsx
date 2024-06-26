@@ -51,7 +51,8 @@ export default function New_balance() {
     
     try{
       await createBalance(balance);
-
+      setYear("");
+      setMonth("");
     }catch(error){
       console.log("Error creating balance", error);
     }
