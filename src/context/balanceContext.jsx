@@ -9,10 +9,9 @@ const BalanceContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useBalance = () => {
-  return useContext(BalanceContext);
-  //   const context = useContext(BalanceContext);
-  //   if (!context) throw new Error("useBalance must be used within a BalanceProvider");
-  //   return context;
+    const context = useContext(BalanceContext);
+    if (!context) throw new Error("useBalance must be used within a BalanceProvider");
+    return context;
 };
 
 // eslint-disable-next-line react/prop-types
@@ -27,8 +26,9 @@ export const BalanceProvider = ({ children }) => {
     try {
       const res = await createBalanceRequest(balance);
       console.log(res);
+      await getBalances();
     } catch (error) {
-      console.log(error);
+      console.log("Error creating balance", error);
     }
   };
 
@@ -41,7 +41,7 @@ export const BalanceProvider = ({ children }) => {
       setBalances(res.data);
       return;
     } catch (error) {
-      console.log(error);
+      console.log("Error obteniendo balances",error);
     }
   };
 
