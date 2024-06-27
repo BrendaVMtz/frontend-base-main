@@ -6,6 +6,7 @@ import {
   getBalanceRequest,
   getTransactionsByIdRequest
 } from "../api/balances";
+import { createTransactionRequest } from "../api/transactions";
 
 const BalanceContext = createContext();
 
@@ -34,6 +35,19 @@ export const BalanceProvider = ({ children }) => {
       console.log("Error creating balance", error);
     }
   };
+
+  //create transaction context function
+  const createTransaction = async (transaccion,id) => {
+    console.log(transaccion);
+    try {
+      const res = await createTransactionRequest(transaccion);
+      console.log(res);
+      await getTransactionsById(id);
+    } catch (error) {
+      console.log("Error creating transaction", error);
+    }
+  }
+
 
   ////READ
   /// read balances context function
@@ -69,7 +83,6 @@ export const BalanceProvider = ({ children }) => {
   };
 
   /// DELETE
-
   const deleteBalance = async (id) => {
     try {
       const res = await deleteBalanceRequest(id);
@@ -84,6 +97,7 @@ export const BalanceProvider = ({ children }) => {
     <BalanceContext.Provider
       value={{
         createBalance,
+        createTransaction,
         getBalances,
         getBalance,
         getTransactionsById,

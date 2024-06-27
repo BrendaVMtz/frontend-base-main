@@ -11,7 +11,7 @@ import {
   Grid,
 } from "@mui/material";
 
-// import { useBalance } from "../../context/balanceContext";
+import { useBalance } from "../../context/balanceContext";
 
 const cuentas = [
   { value: 1, label: "Capital Social" },
@@ -35,6 +35,7 @@ export default function New_transaction() {
   const [creditAcc, setCreditAcc] = React.useState(""); //Cuenta haber
   const [amount, setAmount] = React.useState("");
   
+  const {createTransaction} = useBalance();
  ///usar el contexto
 
   const handleDebitAccountChange = (event) => {
@@ -62,7 +63,16 @@ export default function New_transaction() {
       id_cuenta_haber: creditAcc,
       cantidad: amount
     };
-    console.log(transaccion);
+
+    try {
+      await createTransaction(transaccion, id);
+      setCreditAcc("");
+      setDebitAcc("");
+      setAmount("");
+    } catch (error) {
+      console.log("Error creating transaction", error);
+    }
+
 
     
 
