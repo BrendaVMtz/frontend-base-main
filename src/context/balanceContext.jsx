@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import {
   createBalanceRequest,
+  deleteBalanceRequest,
   getBalancesRequest /*getBalanceRequest*/,
   getTransactionsByIdRequest
 } from "../api/balances";
@@ -55,7 +56,17 @@ export const BalanceProvider = ({ children }) => {
     }
   };
 
-  /// delete balance
+  /// DELETE
+
+  const deleteBalance = async (id) => {
+    try {
+      const res = await deleteBalanceRequest(id);
+      console.log (res);
+      await getBalances();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <BalanceContext.Provider
@@ -63,6 +74,7 @@ export const BalanceProvider = ({ children }) => {
         createBalance,
         getBalances,
         getTransactionsById,
+        deleteBalance,
         balances,
         transactions
       }}
