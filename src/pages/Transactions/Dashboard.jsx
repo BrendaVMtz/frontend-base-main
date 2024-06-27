@@ -1,4 +1,4 @@
-// import * as React from "react";
+import * as React from "react";
 import { /*styled*/ createTheme /*ThemeProvider*/ } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -14,6 +14,8 @@ import Layout from "../Layout";
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const [idTransaction, setIDTransaction] = React.useState(null); //Cuenta debe
+
   const isScreenWide = useMediaQuery(defaultTheme.breakpoints.up("md"));
 
   return (
@@ -43,13 +45,13 @@ export default function Dashboard() {
                 height: isScreenWide ? 260 : 320,
               }}
             >
-              <New_transaction />
+              <New_transaction setIDTransaction = {setIDTransaction}/>
             </Paper>
           </Grid>
           {/* Lista transacciones */}
           <Grid item xs={12}>
             <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-              <Transaccions />
+              <Transaccions idTransaction = {idTransaction} />
             </Paper>
           </Grid>
         </Grid>

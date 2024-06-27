@@ -1,15 +1,6 @@
 import * as React from "react";
 import Title from "../../components/Title";
-import {
-  // FormControl,
-  // InputLabel,
-  // Select,
-  MenuItem,
-  TextField,
-  Button,
-  Grid,
-} from "@mui/material";
-// import { useForm } from "react-hook-form";
+import { MenuItem, TextField, Button, Grid } from "@mui/material";
 import { useBalance } from "../../context/balanceContext";
 
 const months = [
@@ -30,7 +21,7 @@ const months = [
 export default function New_balance() {
   const [year, setYear] = React.useState("");
   const [month, setMonth] = React.useState("");
-  const {createBalance} = useBalance();
+  const { createBalance } = useBalance();
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
@@ -40,25 +31,23 @@ export default function New_balance() {
     setMonth(event.target.value);
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const balance = 
-      {
-        anio: year,
-        mes: month
-      }
-    
-    try{
+
+    const balance = {
+      anio: year,
+      mes: month,
+    };
+
+    try {
       await createBalance(balance);
       setYear("");
       setMonth("");
-    }catch(error){
+    } catch (error) {
       console.log("Error creating balance", error);
     }
 
     // Add your logic here to handle form submission
-
   };
   return (
     <React.Fragment>
@@ -69,10 +58,12 @@ export default function New_balance() {
             <TextField
               fullWidth
               select
-              label="Select Year"
+              label="Seleccionar año"
               value={year}
               onChange={handleYearChange}
               variant="outlined"
+              required
+              id="select-year"
             >
               {[...Array(10)].map((_, index) => (
                 <MenuItem key={index} value={2024 - index}>
@@ -85,10 +76,12 @@ export default function New_balance() {
             <TextField
               fullWidth
               select
-              label="Select Month"
+              label="Seleccionar mes"
               value={month}
               onChange={handleMonthChange}
               variant="outlined"
+              required
+              id="select-month"
             >
               {months.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

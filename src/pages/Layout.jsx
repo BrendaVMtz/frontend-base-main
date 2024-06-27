@@ -18,7 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 // import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import { mainListItems, secondaryListItems } from "./Transactions/listItems";
+import { mainListItems } from "./listItems";
+import SecondaryListItems from "./SecondarylistItems";
 // import Chart from "./Transactions/Chart";
 import Logout from "../components/Logout";
 // import New_transaction from "./Transactions/New_transaction";
@@ -131,7 +132,7 @@ const Layout = ({ children }) => {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <SecondaryListItems/>
           </List>
         </Drawer>
         <Box

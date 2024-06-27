@@ -1,16 +1,17 @@
 import * as React from "react";
-// import Typography from '@mui/material/Typography';
+import { useParams } from 'react-router-dom';
 
 import Title from '../../components/Title';
 import {
   FormControl,
-  // InputLabel,
-  // Select,
+  // InputLabel
   MenuItem,
   TextField,
   Button,
   Grid,
 } from "@mui/material";
+
+import { useBalance } from "../../context/balanceContext";
 
 const cuentas = [
   { value: 1, label: "Capital Social" },
@@ -27,23 +28,58 @@ const cuentas = [
   { value: 12, label: "Papelería" },
 ];
 
-export default function New_transaction() {
+// eslint-disable-next-line react/prop-types
+export default function New_transaction({setIDTransaction}) {
+  const { id } = useParams();
+  const [debitAcc, setDebitAcc] = React.useState(""); //Cuenta debe
+  const [creditAcc, setCreditAcc] = React.useState(""); //Cuenta haber
+  const [amount, setAmount] = React.useState("");
   
-  const [cuentaD, setCuentaD] = React.useState("");
-  const [cuentaH, setCuentaH] = React.useState("");
+  const {createTransaction} = useBalance();
+ ///usar el contexto
 
-  const handleCuentaDebeChange = (event) => {
-    setCuentaD(event.target.value);
+  const handleDebitAccountChange = (event) => {
+    setDebitAcc(event.target.value);
   };
-  const handleCuentaHaberChange = (event) => {
-    setCuentaH(event.target.value);
+  const handleCreditAccChange = (event) => {
+    setCreditAcc(event.target.value);
   };
+  const handleAmmountChange = (event) => {
+    const value = event.target.value;
+    //verifica si es un numero entero positivo
+    if (value === '' || /^\d+$/.test(value)) {
+      setAmount(value);
+    }
+  };
+  //enviar el formulario
+  const handleSumbit = async (event) => {
+    event.preventDefault();
+
+    const transaccion = {
+      balance_id: id,
+      id_cuenta_debe: debitAcc,
+      id_cuenta_haber: creditAcc,
+      cantidad: amount
+    };
+
+    try {
+      const res = await createTransaction(transaccion, id);
+      // console.log({res});
+      setIDTransaction(res.id);
+      setCreditAcc("");
+      setDebitAcc("");
+      setAmount("");
+    } catch (error) {
+      console.log("Error creating transaction", error);
+    } 
+
+  }
 
 
   return (
     <React.Fragment>
       <Title>Agregar transacción</Title>
-      <form /*onSubmit={}*/>
+      <form onSubmit={handleSumbit}>
         <Grid container spacing={2}>
           {/*Cuenta debe */}
           <Grid item xs={12} md={6}>
@@ -52,8 +88,8 @@ export default function New_transaction() {
               fullWidth
               select
               label="Cuenta debe"
-              value={cuentaD}
-              onChange={handleCuentaDebeChange}
+              value={debitAcc}
+              onChange={handleDebitAccountChange}
               variant="outlined"
               required
             >
@@ -71,9 +107,11 @@ export default function New_transaction() {
             <TextField
               fullWidth
               select
+              id="creditAccount"
+              name="creditAccount"
               label="Cuenta haber"
-              value={cuentaH}
-              onChange={handleCuentaHaberChange}
+              value={creditAcc}
+              onChange={handleCreditAccChange}
               variant="outlined"
               required
             >
@@ -87,20 +125,27 @@ export default function New_transaction() {
           </Grid>
           <Grid item xs={12} >
             <TextField
-              id="integerValue"
-              name="integerValue"
-              label="Enter an Integer"
-              type="number"
-              // className={classes.textField}
-              // value={formData.integerValue}
-              // onChange={handleInputChange}
               fullWidth
+              id="integerValue"
+              label="Monto"
+              name="integerValue"
+              type="text" 
+              value={amount}
+              onChange={handleAmmountChange}
+              variant="outlined"
               required
+              InputProps={{
+                inputProps: {
+                  pattern: "[0-9]*", 
+                },
+              }}
+              error={amount !== '' && !/^\d+$/.test(amount)}
+              helperText={amount !== '' && !/^\d+$/.test(amount) ? 'Ingresa un numero positivo entero' : ''}
             />
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              Submit
+              Añadir
             </Button>
           </Grid>
         </Grid>
