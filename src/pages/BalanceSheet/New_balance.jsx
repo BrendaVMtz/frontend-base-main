@@ -63,6 +63,7 @@ export default function New_balance() {
               onChange={handleYearChange}
               variant="outlined"
               required
+              id="select-year"
             >
               {[...Array(10)].map((_, index) => (
                 <MenuItem key={index} value={2024 - index}>
@@ -80,6 +81,7 @@ export default function New_balance() {
               onChange={handleMonthChange}
               variant="outlined"
               required
+              id="select-month"
             >
               {months.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

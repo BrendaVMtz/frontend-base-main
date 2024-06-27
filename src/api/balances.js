@@ -20,5 +20,3 @@ export const deleteBalanceRequest = async (id) => axios.delete(`/balances/borrar
 // export const updateBalanceRequest = async (Balance) =>
 //   axios.put(`/Balances/${Balance._id}`, Balance);
 
-
-// export const getBalanceRequest = async (id) => axios.get(`/Balances/${id}`);
