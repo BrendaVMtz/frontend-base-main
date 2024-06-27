@@ -12,16 +12,6 @@ import {
   Grid,
 } from "@mui/material";
 
-// const useStyles = makeStyles((theme) => ({
-//   formControl: {
-//     minWidth: 200,
-//     marginBottom: theme.spacing(2),
-//   },
-//   textField: {
-//     marginBottom: theme.spacing(2),
-//   },
-// }));
-
 const cuentas = [
   { value: 1, label: "Capital Social" },
   { value: 2, label: "Bancos" },

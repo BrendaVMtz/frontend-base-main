@@ -1,64 +1,47 @@
 import * as React from 'react';
-// import { useEffect } from 'react';
-// import Link from '@mui/material/Link';
+import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from '../../components/Title';
-// import { useParams } from 'react-router-dom';
-// import { useBalance } from '../../context/balanceContext';
+import { useParams } from 'react-router-dom';
+import { useBalance } from '../../context/balanceContext';
 
-// Generate Order Data
-function createData(id, name_origin, name_dest, amount) {
-  return { id, name_origin, name_dest, amount };
-}
-
-const rows = [
-  createData(
-    0,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    1,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    2, 
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
-  createData(
-    3,
-    'Capital Social',
-    'Bancos',
-    10000,
-  ),
+const cuentas = [
+  { value: 1, label: "Capital Social" },
+  { value: 2, label: "Bancos" },
+  { value: 3, label: "Equipo de reparto" },
+  { value: 4, label: "Deposito en garantía" },
+  { value: 5, label: "Rentas pagadas" },
+  { value: 6, label: "Gastos de organización" },
+  { value: 7, label: "Caja" },
+  { value: 8, label: "Mobiliario y equipo" },
+  { value: 9, label: "Primas de seguros" },
+  { value: 10, label: "Mercancía" },
+  { value: 11, label: "Equipo de Cómputo" },
+  { value: 12, label: "Papelería" },
 ];
 
-// function preventDefault(event) {
-//   event.preventDefault();
-// }
-
 export default function Transaccions() {
-  // const [transactions] = [];
-  // const { id } = useParams(); // Get the balance ID from URL params
-  // const {transactions, getTransactionsById} = useBalance();
+  const { id } = useParams(); // Get the balance ID from URL params
+  const {transactions, getTransactionsById} = useBalance();
 
 
-  // useEffect(()=>{
-  //   //getTransactionsById(id);
-  // });
+  useEffect(()=>{
+    getTransactionsById(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  const getAccountLabel = (cuentaId) => {
+    const cuenta = cuentas.find((acc) => acc.value === cuentaId);
+    return cuenta ? cuenta.label : `cuenta ${cuentaId}`;
+  };
 
   return (
     <React.Fragment>
-      <Title>Últimos balances generales</Title>
+      <Title>Últimas transacciones</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -69,19 +52,16 @@ export default function Transaccions() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {transactions.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id + 1}</TableCell>
-              <TableCell>{row.name_origin}</TableCell>
-              <TableCell>{row.name_dest}</TableCell>
-              <TableCell align="right">{`$${row.amount}`}</TableCell>
+              <TableCell>{getAccountLabel(row.id_cuenta_debe)}</TableCell>
+              <TableCell>{getAccountLabel(row.id_cuenta_haber)}</TableCell>
+              <TableCell align="right">{`$${row.cantidad}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      {/* <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link> */}
     </React.Fragment>
   );
 }
