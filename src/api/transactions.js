@@ -4,14 +4,23 @@ import axios from "./axios";
 
 //CREATE
 export const createTransactionRequest = async (transaction) => {
-    console.log(transaction);
-  
-    axios.post("/transactions/crear-transaccion", transaction);
-}
+  console.log(transaction);
+
+  const res = await axios
+    .post("/transactions/crear-transaccion", transaction)
+    .then(function (response) {
+      return response;
+    });
+  return res;
+};
 
 //READ
 
 //DELETE
-export const deleteTransactionRequest = async (id) => axios.delete(`/transactions/borrar-transaccion/${id}`);
+export const deleteTransactionRequest = async (id, balance) => {
+  const res = await axios
+    .delete(`/transactions/borrar-transaccion/${id}`, balance)
+    .then((response) => response); //obtener una respuesta del servidor
 
-
+  return res;
+};

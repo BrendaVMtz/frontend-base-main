@@ -28,9 +28,9 @@ const cuentas = [
   { value: 12, label: "Papelería" },
 ];
 
-export default function New_transaction() {
+// eslint-disable-next-line react/prop-types
+export default function New_transaction({setIDTransaction}) {
   const { id } = useParams();
-  
   const [debitAcc, setDebitAcc] = React.useState(""); //Cuenta debe
   const [creditAcc, setCreditAcc] = React.useState(""); //Cuenta haber
   const [amount, setAmount] = React.useState("");
@@ -44,7 +44,6 @@ export default function New_transaction() {
   const handleCreditAccChange = (event) => {
     setCreditAcc(event.target.value);
   };
-
   const handleAmmountChange = (event) => {
     const value = event.target.value;
     //verifica si es un numero entero positivo
@@ -52,7 +51,6 @@ export default function New_transaction() {
       setAmount(value);
     }
   };
-
   //enviar el formulario
   const handleSumbit = async (event) => {
     event.preventDefault();
@@ -65,16 +63,15 @@ export default function New_transaction() {
     };
 
     try {
-      await createTransaction(transaccion, id);
+      const res = await createTransaction(transaccion, id);
+      // console.log({res});
+      setIDTransaction(res.id);
       setCreditAcc("");
       setDebitAcc("");
       setAmount("");
     } catch (error) {
       console.log("Error creating transaction", error);
-    }
-
-
-    
+    } 
 
   }
 

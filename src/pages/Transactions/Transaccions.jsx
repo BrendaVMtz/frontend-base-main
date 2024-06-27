@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { useEffect, useState } from 'react';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+} from "@mui/material";
 import Title from '../../components/Title';
 import { useParams } from 'react-router-dom';
 import { useBalance } from '../../context/balanceContext';
@@ -24,19 +27,44 @@ const cuentas = [
   { value: 12, label: "Papelería" },
 ];
 
-export default function Transaccions() {
+// eslint-disable-next-line react/prop-types
+export default function Transaccions({idTransaction}) {
   const { id } = useParams(); // Get the balance ID from URL params
-  const {transactions, getTransactionsById} = useBalance();
+  const {transactions, getTransactionsById, deleteTransaccion} = useBalance();
+  const [reversedTransactions, setReversedTransactions] = useState([]);
 
 
+  //Funcion  que trae las transacciones con el id de la URL
   useEffect(()=>{
     getTransactionsById(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
+
+  useEffect(() => {
+    // Invertir el orden de transactions y actualizar el estado
+    if (transactions) {
+      const reversed = [...transactions].reverse();
+      setReversedTransactions(reversed);
+    }
+  }, [transactions]);
+
+
 
   const getAccountLabel = (cuentaId) => {
     const cuenta = cuentas.find((acc) => acc.value === cuentaId);
     return cuenta ? cuenta.label : `cuenta ${cuentaId}`;
+  };
+
+  const handleDelete = async (id,balance_id) => {
+    try {  
+      const balance = {
+        balance_id: balance_id
+      }
+      deleteTransaccion(id,balance);
+      // Actualiza la lista de transacciones después de la eliminación
+      // getTransactionsById();
+    } catch (error) {
+      console.error("Error deleting transaccion:", error);
+    }
   };
 
   return (
@@ -48,16 +76,26 @@ export default function Transaccions() {
             <TableCell>Id</TableCell>
             <TableCell>Cuenta debe</TableCell>
             <TableCell>Cuenta haber</TableCell>
-            <TableCell align="right">Cantidad</TableCell>
+            <TableCell>Cantidad</TableCell>
+            <TableCell align="right">Acción</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {transactions.map((row) => (
+          {reversedTransactions.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.id + 1}</TableCell>
+              <TableCell>{row.id}</TableCell>
               <TableCell>{getAccountLabel(row.id_cuenta_debe)}</TableCell>
               <TableCell>{getAccountLabel(row.id_cuenta_haber)}</TableCell>
-              <TableCell align="right">{`$${row.cantidad}`}</TableCell>
+              <TableCell>{`$${row.cantidad}`}</TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => handleDelete(row.id, id)}
+                >
+                  Eliminar
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

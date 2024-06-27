@@ -33,7 +33,7 @@ export default function Chart() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   
-  console.log(balance);
+  // console.log(balance);
 
   const getMonthLabel = (monthId) => {
     const month = months.find((acc) => acc.value === monthId);
