@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../context/authContext";
 import { useEffect } from "react";
-// import Hero from "../../components/Hero";
 
 function Login() {
   const {
@@ -24,6 +23,7 @@ function Login() {
   const onSumbit = handleSubmit(async (values) => {
     try {
       await signin(values); // Call signup function from useAuth
+      navigate("/balance-general"); // Redirigir a otra página después del inicio de sesión exitoso
     } catch (error) {
       console.error("Error signing up:", error);
       // Handle error state or display error to user
